@@ -35,10 +35,11 @@ const Player = () => {
   };
 
   useEffect(() => {
+    setFavorite(false);
     if (select) {
       ifInFavorites();
     }
-  }, [allFavorites]);
+  }, [select, allFavorites]);
 
   const formatDuration = (seconds) => {
     const minutes = Math.floor(seconds / 60);
