@@ -1,9 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import allSongsReducer from "../reducers/allSongsReducer";
+import songSelectedReducer from "../reducers/songSelectedReducer";
 
 const rootReducer = combineReducers({
-  // selectSong :
   allSongs: allSongsReducer,
+  selectSong: songSelectedReducer,
   // error :
 });
 
