@@ -26,6 +26,7 @@ const allSongsReducer = (state = initialState, action) => {
         ...state,
         HipHop: action.payload,
       };
+
     default:
       console.log("default");
       return state;

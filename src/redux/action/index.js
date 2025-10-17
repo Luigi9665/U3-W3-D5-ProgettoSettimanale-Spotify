@@ -5,8 +5,11 @@ export const ADD_ROCK = "ADD_ROCK";
 export const ADD_POP = "ADD_POP";
 export const ADD_HIPHOP = "ADD_HIPHOP";
 export const ADD_SELECT = "ADD_SELECT";
+export const ADD_SINGER = "ADD_SINGER";
+export const SEARCH = "SEARCH";
 
 export const addSelectAction = (data) => ({ type: ADD_SELECT, payload: data });
+export const addSearchAction = (searched) => ({ type: SEARCH, payload: searched });
 
 export const addSongAction = (artistName, typeSelect) => {
   return async (dispatch, getState) => {

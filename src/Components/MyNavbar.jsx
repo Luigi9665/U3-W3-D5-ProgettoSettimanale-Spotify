@@ -1,8 +1,25 @@
 import { Col, Container, ListGroup, ListGroupItem, Nav } from "react-bootstrap";
 import logo from "../assets/logo/logo.png";
 import { HouseDoorFill, BookFill } from "react-bootstrap-icons";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addSearchAction } from "../redux/action";
 
 const MyNavbar = () => {
+  const [query, setQuery] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    setQuery(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addSearchAction(query));
+    setQuery("");
+  };
+
   return (
     <Col md={2} className="d-none d-lg-block">
       <Nav className="navbar navbar-expand-md fixed-left justify-content-between">
@@ -28,12 +45,20 @@ const MyNavbar = () => {
                   </li>
                 </ul>
               </div>
-              <div className="input-group mt-3">
+              {/* <div className="input-group mt-3">
                 <input type="text" className="form-control" placeholder="Search" aria-label="Search" />
                 <div className="input-group-append">
                   <button className="btn btn-outline-secondary btn-sm h-100">GO</button>
                 </div>
-              </div>
+              </div> */}
+              <form className="input-group mt-3" onSubmit={handleSubmit}>
+                <input type="text" className="form-control" placeholder="Search" aria-label="Search" value={query} onChange={handleChange} />
+                <div className="input-group-append">
+                  <button className="btn btn-outline-secondary btn-sm h-100" type="submit">
+                    GO
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </Container>
