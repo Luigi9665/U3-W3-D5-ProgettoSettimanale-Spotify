@@ -20,8 +20,8 @@ const SectionSong = ({ title, artistSearch, typeSelect, stateSelect }) => {
           <h2 className="text-white">{title}</h2>
           <div className="imgLinks py-3">
             <Row xs={1} sm={2} lg={3} xl={4}>
-              {resultOfSearch.map((singleSong, index) => (
-                <SingleSong key={artistSearch + index} singleSong={singleSong} />
+              {resultOfSearch.map((singleSong) => (
+                <SingleSong key={singleSong.id} singleSong={singleSong} />
               ))}
             </Row>
           </div>

@@ -7,9 +7,14 @@ export const ADD_HIPHOP = "ADD_HIPHOP";
 export const ADD_SELECT = "ADD_SELECT";
 export const ADD_SINGER = "ADD_SINGER";
 export const SEARCH = "SEARCH";
+export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
+export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
 
 export const addSelectAction = (data) => ({ type: ADD_SELECT, payload: data });
 export const addSearchAction = (searched) => ({ type: SEARCH, payload: searched });
+
+export const addToFavoriteAction = (data) => ({ type: ADD_TO_FAVORITES, payload: data });
+export const removeFromFavoriteAction = (data) => ({ type: REMOVE_FROM_FAVORITES, payload: data });
 
 export const addSongAction = (artistName, typeSelect) => {
   return async (dispatch, getState) => {

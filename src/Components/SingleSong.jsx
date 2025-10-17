@@ -1,26 +1,70 @@
 import { Col } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { addSelectAction } from "../redux/action";
+import { useDispatch, useSelector } from "react-redux";
+import { addSelectAction, addToFavoriteAction, removeFromFavoriteAction } from "../redux/action";
+import { HeartFill } from "react-bootstrap-icons";
+import { useEffect, useState } from "react";
 
 const SingleSong = ({ singleSong }) => {
+  const [favorite, setFavorite] = useState(false);
+
   const dispatch = useDispatch();
+
+  const allFavorites = useSelector((state) => state.favorites.content);
+
+  const ifInFavorites = () => {
+    allFavorites.forEach((song) => {
+      if (singleSong.title === song.title) {
+        setFavorite(true);
+      }
+    });
+  };
+
+  const starClick = () => {
+    if (favorite) {
+      dispatch(removeFromFavoriteAction(singleSong));
+      setFavorite(false);
+    } else {
+      dispatch(addToFavoriteAction(singleSong));
+    }
+  };
+
+  useEffect(() => {
+    ifInFavorites();
+  }, [allFavorites]);
 
   return (
     <Col>
-      <div className="text-center">
-        <div
-          style={{ cursor: "pointer" }}
-          onClick={() => dispatch(addSelectAction(singleSong))}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = "scale(1.1)";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = "scale(1)";
-          }}
-        >
-          <img className="img-fluid" src={singleSong.album.cover_medium} alt="track" />
-          <p className="m-0"> Track: {singleSong.title} </p>
-          <p className="m-0"> Artist: {singleSong.artist.name} </p>
+      <div style={{ userSelect: "none" }} className="text-center">
+        <div>
+          <img
+            className="img-fluid"
+            src={singleSong.album.cover_medium}
+            alt="track"
+            style={{ cursor: "pointer" }}
+            onClick={() => dispatch(addSelectAction(singleSong))}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.1)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+            }}
+          />
+          <div className="d-flex justify-content-center align-items-center gap-2">
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={() => dispatch(addSelectAction(singleSong))}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "scale(1.1)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "scale(1)";
+              }}
+            >
+              <p className="m-0"> Track: {singleSong.title} </p>
+              <p className="m-0"> Artist: {singleSong.artist.name} </p>
+            </div>
+            <HeartFill style={{ cursor: "pointer" }} className={`fs-3 ${favorite ? "text-danger" : "text-white"} `} onClick={starClick} />
+          </div>
         </div>
       </div>
     </Col>
