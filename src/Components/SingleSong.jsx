@@ -2,35 +2,39 @@ import { Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { addSelectAction, addToFavoriteAction, removeFromFavoriteAction } from "../redux/action";
 import { HeartFill } from "react-bootstrap-icons";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 const SingleSong = ({ singleSong }) => {
-  const [favorite, setFavorite] = useState(false);
+  // const [favorite, setFavorite] = useState(false);
 
   const dispatch = useDispatch();
 
   const allFavorites = useSelector((state) => state.favorites.content);
 
-  const ifInFavorites = () => {
-    allFavorites.forEach((song) => {
-      if (singleSong.title === song.title) {
-        setFavorite(true);
-      }
-    });
+  // const ifInFavorites = () => {
+  //   allFavorites.forEach((song) => {
+  //     if (singleSong.title === song.title) {
+  //       setFavorite(true);
+  //     }
+  //   });
+  // };
+
+  const favControl = () => {
+    return allFavorites.find((fav) => singleSong.id === fav.id);
   };
 
   const starClick = () => {
-    if (favorite) {
+    if (favControl()) {
       dispatch(removeFromFavoriteAction(singleSong));
-      setFavorite(false);
     } else {
       dispatch(addToFavoriteAction(singleSong));
     }
   };
 
-  useEffect(() => {
-    ifInFavorites();
-  }, [allFavorites]);
+  // useEffect(() => {
+  //   // setFavorite(false);
+  //   ifInFavorites();
+  // }, [allFavorites]);
 
   return (
     <Col>
@@ -63,7 +67,7 @@ const SingleSong = ({ singleSong }) => {
               <p className="m-0"> Track: {singleSong.title} </p>
               <p className="m-0"> Artist: {singleSong.artist.name} </p>
             </div>
-            <HeartFill style={{ cursor: "pointer" }} className={`fs-3 ${favorite ? "text-danger" : "text-white"} `} onClick={starClick} />
+            <HeartFill style={{ cursor: "pointer" }} className={`fs-3 ${favControl() ? "text-danger" : "text-white"} `} onClick={starClick} />
           </div>
         </div>
       </div>

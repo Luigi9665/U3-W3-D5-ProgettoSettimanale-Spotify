@@ -5,41 +5,44 @@ import play from "../assets/playerbuttons/play.png";
 import next from "../assets/playerbuttons/next.png";
 import repeat from "../assets/playerbuttons/repeat.png";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { HeartFill } from "react-bootstrap-icons";
 import { addToFavoriteAction, removeFromFavoriteAction } from "../redux/action";
 
 const Player = () => {
-  const [favorite, setFavorite] = useState(false);
+  // const [favorite, setFavorite] = useState(false);
 
   const dispatch = useDispatch();
   const select = useSelector((state) => state.selectSong.content);
 
   const allFavorites = useSelector((state) => state.favorites.content);
 
-  const ifInFavorites = () => {
-    allFavorites.forEach((song) => {
-      if (select.title === song.title) {
-        setFavorite(true);
-      }
-    });
+  // const ifInFavorites = () => {
+  //   allFavorites.forEach((song) => {
+  //     if (select.title === song.title) {
+  //       setFavorite(true);
+  //     }
+  //   });
+  // };
+
+  const favControl = () => {
+    return allFavorites.find((fav) => select.id === fav.id);
   };
 
   const starClick = () => {
-    if (favorite) {
+    if (favControl()) {
       dispatch(removeFromFavoriteAction(select));
-      setFavorite(false);
     } else {
       dispatch(addToFavoriteAction(select));
     }
   };
 
-  useEffect(() => {
-    setFavorite(false);
-    if (select) {
-      ifInFavorites();
-    }
-  }, [select, allFavorites]);
+  // useEffect(() => {
+  //   setFavorite(false);
+  //   if (select) {
+  //     ifInFavorites();
+  //   }
+  // }, [select, allFavorites]);
 
   const formatDuration = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -66,7 +69,7 @@ const Player = () => {
                   </div>
                   <p className="text-white text-center w-100 m-0">{select.title_short}</p>
                 </div>
-                <HeartFill style={{ cursor: "pointer" }} className={`fs-3 ${favorite ? "text-danger" : "text-white"} `} onClick={starClick} />
+                <HeartFill style={{ cursor: "pointer" }} className={`fs-3 ${favControl() ? "text-danger" : "text-white"} `} onClick={starClick} />
               </div>
             </Col>
           )}

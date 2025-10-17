@@ -17,7 +17,7 @@ const favoriteReducers = (state = initialState, action) => {
       console.log("REMOVE_FROM_FAVORITES");
       return {
         ...state,
-        content: state.content.filter((job) => job._id !== action.payload._id),
+        content: state.content.filter((song) => song.id !== action.payload.id),
       };
     default:
       console.log("DEFAULT");
